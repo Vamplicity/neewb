@@ -10,12 +10,12 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/vozoi
 
 
 
-local watermark = library:Watermark("Exie.Exe | V-1.2.4 | Beta")
+local watermark = library:Watermark("Exie.Exe | V-Beta | Regular")
 -- watermark:Set("Watermark Set")
 -- watermark:Hide() -- toggles watermark
 
 local main = library:Load{
-    Name = "Exie.Exe [Credits - Xilory#0001]",
+    Name = "Exie.Exe",
     SizeX = 350,
     SizeY = 500,
     Theme = "Midnight",
@@ -393,15 +393,39 @@ section:Button{
   
   local slider = section:Slider{
     Name = "Cframe-Speed",
-    Text = "[value]/2.5",
+    Text = "[value]/5",
     --Default = 0.1,
     Min = 0.1,
-    Max = 2.5,
+    Max = 5,
     Float = 0.1,
     Flag = "Lock-Prediction",
     Callback = function(value)
 getgenv().Multiplier = value
     end
+}
+
+ section:Button{
+   Name = "Cframe Gun-Fix",
+   Callback  = function()
+         for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Script") and v.Name ~= "Health" and v.Name ~= "Sound" and v:FindFirstChild("LocalScript") then
+            v:Destroy()
+        end
+    end
+    game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+        repeat
+            wait()
+        until game.Players.LocalPlayer.Character
+        char.ChildAdded:Connect(function(child)
+            if child:IsA("Script") then 
+                wait(0.1)
+                if child:FindFirstChild("LocalScript") then
+                    child.LocalScript:FireServer()
+   end
+end
+end)
+end)
+end)
 }
 
 
